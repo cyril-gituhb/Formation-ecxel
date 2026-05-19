@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire d'Inscription - Formation Excel</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus,
+        input[type="date"]:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 5px rgba(102, 126, 234, 0.2);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+        }
+
+        input[type="checkbox"],
+        input[type="radio"] {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .checkbox-item label {
+            margin: 0;
+            font-weight: normal;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-reset {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        .btn-reset:hover {
+            background: #d0d0d0;
+        }
+
+        .message {
+            display: none;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        @media (max-width: 600px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Formation Excel</h1>
+            <p>Formulaire d'inscription</p>
+        </div>
+
+        <div id="message" class="message"></div>
+
+        <form id="registrationForm">
+            <!-- Informations Personnelles -->
+            <div class="form-group">
+                <label for="firstName">Prénom *</label>
+                <input type="text" id="firstName" name="firstName" required>
+            </div>
+
+            <div class="form-group">
+                <label for="lastName">Nom *</label>
+                <input type="text" id="lastName" name="lastName" required>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Téléphone</label>
+                    <input type="tel" id="phone" name="phone">
+                </div>
+            </div>
+
+            <!-- Informations Professionnelles -->
+            <div class="form-group">
+                <label for="company">Entreprise</label>
+                <input type="text" id="company" name="company">
+            </div>
+
+            <div class="form-group">
+                <label for="position">Poste</label>
+                <input type="text" id="position" name="position">
+            </div>
+
+            <!-- Formation -->
+            <div class="form-group">
+                <label for="level">Niveau *</label>
+                <select id="level" name="level" required>
+                    <option value="">-- Sélectionnez un niveau --</option>
+                    <option value="beginner">Débutant</option>
+                    <option value="intermediate">Intermédiaire</option>
+                    <option value="advanced">Avancé</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="startDate">Date de démarrage souhaitée *</label>
+                <input type="date" id="startDate" name="startDate" required>
+            </div>
+
+            <!-- Modules d'Intérêt -->
+            <div class="form-group">
+                <label>Modules d'intérêt (plusieurs choix possibles)</label>
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="module1" name="modules" value="basics">
+                        <label for="module1">Bases d'Excel</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="module2" name="modules" value="formulas">
+                        <label for="module2">Formules et Fonctions</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="module3" name="modules" value="charts">
+                        <label for="module3">Graphiques et Visualisation</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="module4" name="modules" value="pivot">
+                        <label for="module4">Tableaux Croisés Dynamiques</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="module5" name="modules" value="vba">
+                        <label for="module5">VBA et Macros</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Expérience -->
+            <div class="form-group">
+                <label>Avez-vous déjà utilisé Excel ? *</label>
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="radio" id="expeYes" name="experience" value="yes" required>
+                        <label for="expeYes">Oui</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="radio" id="expeNo" name="experience" value="no" required>
+                        <label for="expeNo">Non</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Commentaires -->
+            <div class="form-group">
+                <label for="comments">Commentaires additionnels</label>
+                <textarea id="comments" name="comments" placeholder="Parlez-nous de vos objectifs..."></textarea>
+            </div>
+
+            <!-- Conditions -->
+            <div class="form-group">
+                <div class="checkbox-item">
+                    <input type="checkbox" id="terms" name="terms" required>
+                    <label for="terms">J'accepte les conditions d'utilisation *</label>
+                </div>
+            </div>
+
+            <!-- Boutons -->
+            <div class="button-group">
+                <button type="submit" class="btn-submit">S'inscrire</button>
+                <button type="reset" class="btn-reset">Réinitialiser</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById('registrationForm');
+        const messageDiv = document.getElementById('message');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Récupérer les données du formulaire
+            const formData = new FormData(form);
+            const data = {
+                firstName: formData.get('firstName'),
+                lastName: formData.get('lastName'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                company: formData.get('company'),
+                position: formData.get('position'),
+                level: formData.get('level'),
+                startDate: formData.get('startDate'),
+                modules: formData.getAll('modules'),
+                experience: formData.get('experience'),
+                comments: formData.get('comments'),
+                registrationDate: new Date().toISOString()
+            };
+
+            // Afficher un message de succès
+            messageDiv.textContent = `Merci ${data.firstName} ! Votre inscription a été reçue avec succès. Nous vous contacterons bientôt à l'adresse ${data.email}`;
+            messageDiv.classList.add('success');
+            messageDiv.classList.remove('error');
+            messageDiv.style.display = 'block';
+
+            // Log des données (à remplacer par un vrai envoi au serveur)
+            console.log('Données d\'inscription:', data);
+
+            // Réinitialiser le formulaire après 3 secondes
+            setTimeout(() => {
+                form.reset();
+                messageDiv.style.display = 'none';
+            }, 3000);
+        });
+
+        // Valider l'email
+        document.getElementById('email').addEventListener('blur', function() {
+            const email = this.value;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email) && email !== '') {
+                messageDiv.textContent = 'Veuillez entrer une adresse email valide';
+                messageDiv.classList.add('error');
+                messageDiv.classList.remove('success');
+                messageDiv.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
