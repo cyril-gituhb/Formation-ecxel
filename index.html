@@ -199,121 +199,66 @@
         <div id="message" class="message"></div>
 
         <form id="inscriptionForm">
-            <!-- Informations Personnelles -->
-            <div class="form-group">
-                <label for="nom">Nom *</label>
-                <input type="text" id="nom" name="nom" placeholder="Nom" required>
-            </div>
+          
+          <label>Niveau *</label>
+          <select name="niveau" required>
+            <option value="">-- Sélectionnez un niveau --</option>
+            <option value="Débutant">Débutant</option>
+            <option value="Intermédiaire">Intermédiaire</option>
+            <option value="Avancé">Avancé</option>
+          </select>
 
-            <div class="form-group">
-                <label for="email">Email *</label>
-                <input type="email" id="email" name="email" placeholder="Email" required>
-            </div>
+          <label>Date de démarrage souhaitée *</label>
+          <input type="date" name="date" required>
 
-            <div class="form-group">
-                <label for="telephone">Téléphone *</label>
-                <input type="tel" id="telephone" name="telephone" placeholder="Téléphone" required>
-            </div>
+          <label>Modules d'intérêt (plusieurs choix possibles)</label>
+          <div>
+            <input type="checkbox" name="modules" value="Bases d'Excel"> Bases d'Excel<br>
+            <input type="checkbox" name="modules" value="Formules et Fonctions"> Formules et Fonctions<br>
+            <input type="checkbox" name="modules" value="Graphiques et Visualisation"> Graphiques et Visualisation<br>
+            <input type="checkbox" name="modules" value="Tableaux Croisés Dynamiques"> Tableaux Croisés Dynamiques<br>
+            <input type="checkbox" name="modules" value="VBA et Macros"> VBA et Macros<br>
+          </div>
 
-            <!-- Formation -->
-            <div class="form-group">
-                <label for="niveau">Niveau *</label>
-                <select id="niveau" name="niveau" required>
-                    <option value="">-- Sélectionnez un niveau --</option>
-                    <option value="Débutant">Débutant</option>
-                    <option value="Intermédiaire">Intermédiaire</option>
-                    <option value="Avancé">Avancé</option>
-                </select>
-            </div>
+          <label>Avez-vous déjà utilisé Excel ? *</label>
+          <div>
+            <input type="radio" name="experience" value="Oui" required> Oui
+            <input type="radio" name="experience" value="Non" required> Non
+          </div>
 
-            <div class="form-group">
-                <label for="date">Date de démarrage souhaitée *</label>
-                <input type="date" id="date" name="date" required>
-            </div>
+          <label>Commentaires additionnels</label>
+          <textarea name="commentaires" placeholder="Parlez-nous de vos objectifs..."></textarea>
 
-            <!-- Modules d'Intérêt -->
-            <div class="form-group">
-                <label>Modules d'intérêt (plusieurs choix possibles) *</label>
-                <div class="checkbox-group">
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="module1" name="modules" value="Bases d'Excel">
-                        <label for="module1">Bases d'Excel</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="module2" name="modules" value="Formules et Fonctions">
-                        <label for="module2">Formules et Fonctions</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="module3" name="modules" value="Graphiques et Visualisation">
-                        <label for="module3">Graphiques et Visualisation</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="module4" name="modules" value="Tableaux Croisés Dynamiques">
-                        <label for="module4">Tableaux Croisés Dynamiques</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="module5" name="modules" value="VBA et Macros">
-                        <label for="module5">VBA et Macros</label>
-                    </div>
-                </div>
-            </div>
+          <label>
+            <input type="checkbox" name="conditions" required> J'accepte les conditions d'utilisation *
+          </label>
 
-            <!-- Expérience -->
-            <div class="form-group">
-                <label>Avez-vous déjà utilisé Excel ? *</label>
-                <div class="checkbox-group">
-                    <div class="checkbox-item">
-                        <input type="radio" id="expeYes" name="experience" value="Oui" required>
-                        <label for="expeYes">Oui</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="radio" id="expeNo" name="experience" value="Non" required>
-                        <label for="expeNo">Non</label>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Commentaires -->
-            <div class="form-group">
-                <label for="commentaires">Commentaires additionnels</label>
-                <textarea id="commentaires" name="commentaires" placeholder="Parlez-nous de vos objectifs..."></textarea>
-            </div>
-
-            <!-- Conditions -->
-            <div class="form-group">
-                <div class="checkbox-item">
-                    <input type="checkbox" id="terms" name="terms" required>
-                    <label for="terms">J'accepte les conditions d'utilisation *</label>
-                </div>
-            </div>
-
-            <!-- Boutons -->
-            <div class="button-group">
-                <button type="submit" class="btn-submit">S'inscrire</button>
-                <button type="reset" class="btn-reset">Réinitialiser</button>
-            </div>
+          <div class="button-group">
+            <button type="submit">S'inscrire</button>
+            <button type="reset">Réinitialiser</button>
+          </div>
         </form>
     </div>
 
     <script>
-        document.getElementById('inscriptionForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(this);
-            
-            let message = "Nouvelle inscription Formation Excel:%0A";
-            message += "Nom: " + formData.get('nom') + "%0A";
-            message += "Email: " + formData.get('email') + "%0A";
-            message += "Téléphone: " + formData.get('telephone') + "%0A";
-            message += "Niveau: " + formData.get('niveau') + "%0A";
-            message += "Date: " + formData.get('date') + "%0A";
-            message += "Modules: " + formData.getAll('modules').join(', ') + "%0A";
-            message += "Déjà utilisé Excel: " + formData.get('experience') + "%0A";
-            message += "Commentaires: " + formData.get('commentaires');
-            
-            // Ouvre WhatsApp avec le message
-            window.open("https://wa.me/243858481105?text=" + message, "_blank");
-        });
+document.getElementById('inscriptionForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  const formData = new FormData(this);
+  
+  let message = "🔔 Nouvelle inscription Formation Excel:%0A%0A";
+  message += "📊 Niveau: " + formData.get('niveau') + "%0A";
+  message += "📅 Date de démarrage: " + formData.get('date') + "%0A";
+  message += "📚 Modules: " + (formData.getAll('modules').join(', ') || 'Aucun') + "%0A";
+  message += "💻 Déjà utilisé Excel: " + formData.get('experience') + "%0A";
+  message += "💬 Commentaires: " + (formData.get('commentaires') || 'Aucun') + "%0A";
+
+  // Ouvre WhatsApp avec le message pré-rempli
+  window.open("https://wa.me/243858481105?text=" + message, "_blank");
+  
+  // Message de confirmation
+  alert("Merci ! WhatsApp va s'ouvrir pour finaliser l'inscription.");
+});
     </script>
 </body>
 </html>
