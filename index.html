@@ -181,6 +181,22 @@
             border: 1px solid #f5c6cb;
         }
 
+        .deadline-message {
+            padding: 40px;
+            text-align: center;
+            color: #d32f2f;
+        }
+
+        .deadline-message h2 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .deadline-message p {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
         hr {
             margin: 25px 0;
             border: none;
@@ -215,8 +231,7 @@
         </div>
 
         <div id="message" class="message"></div>
-
-        <form id="inscriptionForm">
+        <div id="inscriptionForm">
           
           <label>Nom *</label>
           <input type="text" name="nom" required>
@@ -299,12 +314,37 @@
             <button type="submit" class="btn-submit">S'inscrire</button>
             <button type="reset" class="btn-reset">Réinitialiser</button>
           </div>
-        </form>
+        </div>
     </div>
 
     <script>
+const DEADLINE = new Date("2026-05-20T08:00:00"); // 20 mai 2026, 08h00
+
+// Vérifie à l'ouverture de la page
+window.addEventListener('DOMContentLoaded', function() {
+  const now = new Date();
+  
+  if (now > DEADLINE) {
+    document.getElementById('inscriptionForm').innerHTML = `
+      <div class="deadline-message">
+        <h2>Inscriptions fermées</h2>
+        <p>La date limite était le 20/05/2026 à 08h00.</p>
+        <p>Merci pour ton intérêt !</p>
+      </div>
+    `;
+  }
+});
+
+// Vérifie à la soumission aussi
 document.getElementById('inscriptionForm').addEventListener('submit', function(e) {
   e.preventDefault();
+  
+  const now = new Date();
+  
+  if (now > DEADLINE) {
+    alert("Désolé, les inscriptions sont fermées depuis le 20/05/2026 à 08h00.");
+    return;
+  }
   
   const formData = new FormData(this);
   
@@ -321,12 +361,12 @@ document.getElementById('inscriptionForm').addEventListener('submit', function(e
   message += "💻 Déjà utilisé Excel: " + formData.get('experience') + "%0A";
   message += "💬 Commentaires: " + (formData.get('commentaires') || '-') + "%0A";
   
-  if(formData.get('photo').name) {
+  if(formData.get('photo') && formData.get('photo').name) {
     message += "%0A⚠️ La personne a ajouté une photo. Demande-lui de l'envoyer après.";
   }
 
   window.open("https://wa.me/243858481105?text=" + message, "_blank");
-  alert("Merci ! WhatsApp va s'ouvrir avec les infos. Demande la photo si besoin.");
+  alert("Merci ! WhatsApp va s'ouvrir avec les infos.");
 });
     </script>
 </body>
