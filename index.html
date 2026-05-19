@@ -25,7 +25,7 @@
             background: white;
             border-radius: 10px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-            max-width: 500px;
+            max-width: 600px;
             width: 100%;
             padding: 40px;
         }
@@ -59,9 +59,10 @@
         }
 
         input[type="text"],
-        input[type="email"],
         input[type="tel"],
+        input[type="number"],
         input[type="date"],
+        input[type="file"],
         select,
         textarea {
             width: 100%;
@@ -74,9 +75,10 @@
         }
 
         input[type="text"]:focus,
-        input[type="email"]:focus,
         input[type="tel"]:focus,
+        input[type="number"]:focus,
         input[type="date"]:focus,
+        input[type="file"]:focus,
         select:focus,
         textarea:focus {
             outline: none;
@@ -115,6 +117,11 @@
         .checkbox-item label {
             margin: 0;
             font-weight: normal;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 20px;
         }
 
         .button-group {
@@ -174,6 +181,12 @@
             border: 1px solid #f5c6cb;
         }
 
+        hr {
+            margin: 25px 0;
+            border: none;
+            border-top: 1px solid #ddd;
+        }
+
         @media (max-width: 600px) {
             .form-row {
                 grid-template-columns: 1fr;
@@ -185,6 +198,11 @@
 
             .button-group {
                 flex-direction: column;
+            }
+
+            .radio-group {
+                flex-direction: column;
+                gap: 10px;
             }
         }
     </style>
@@ -200,6 +218,29 @@
 
         <form id="inscriptionForm">
           
+          <label>Nom *</label>
+          <input type="text" name="nom" required>
+
+          <label>Post-nom</label>
+          <input type="text" name="postnom">
+
+          <label>Prénom *</label>
+          <input type="text" name="prenom" required>
+
+          <label>Numéro WhatsApp *</label>
+          <input type="tel" name="numero" placeholder="+243..." required>
+
+          <label>Âge</label>
+          <input type="number" name="age" min="15" max="80">
+
+          <label>Pays</label>
+          <input type="text" name="pays">
+
+          <label>Photo d'identité</label>
+          <input type="file" name="photo" accept="image/*">
+
+          <hr>
+
           <label>Niveau *</label>
           <select name="niveau" required>
             <option value="">-- Sélectionnez un niveau --</option>
@@ -211,19 +252,40 @@
           <label>Date de démarrage souhaitée *</label>
           <input type="date" name="date" required>
 
-          <label>Modules d'intérêt (plusieurs choix possibles)</label>
-          <div>
-            <input type="checkbox" name="modules" value="Bases d'Excel"> Bases d'Excel<br>
-            <input type="checkbox" name="modules" value="Formules et Fonctions"> Formules et Fonctions<br>
-            <input type="checkbox" name="modules" value="Graphiques et Visualisation"> Graphiques et Visualisation<br>
-            <input type="checkbox" name="modules" value="Tableaux Croisés Dynamiques"> Tableaux Croisés Dynamiques<br>
-            <input type="checkbox" name="modules" value="VBA et Macros"> VBA et Macros<br>
+          <label>Modules d'intérêt</label>
+          <div class="checkbox-group">
+            <div class="checkbox-item">
+              <input type="checkbox" name="modules" value="Bases d'Excel" id="mod1">
+              <label for="mod1">Bases d'Excel</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" name="modules" value="Formules et Fonctions" id="mod2">
+              <label for="mod2">Formules et Fonctions</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" name="modules" value="Graphiques et Visualisation" id="mod3">
+              <label for="mod3">Graphiques et Visualisation</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" name="modules" value="Tableaux Croisés Dynamiques" id="mod4">
+              <label for="mod4">Tableaux Croisés Dynamiques</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" name="modules" value="VBA et Macros" id="mod5">
+              <label for="mod5">VBA et Macros</label>
+            </div>
           </div>
 
           <label>Avez-vous déjà utilisé Excel ? *</label>
-          <div>
-            <input type="radio" name="experience" value="Oui" required> Oui
-            <input type="radio" name="experience" value="Non" required> Non
+          <div class="radio-group">
+            <div class="checkbox-item">
+              <input type="radio" name="experience" value="Oui" id="exp1" required>
+              <label for="exp1">Oui</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="radio" name="experience" value="Non" id="exp2" required>
+              <label for="exp2">Non</label>
+            </div>
           </div>
 
           <label>Commentaires additionnels</label>
@@ -234,8 +296,8 @@
           </label>
 
           <div class="button-group">
-            <button type="submit">S'inscrire</button>
-            <button type="reset">Réinitialiser</button>
+            <button type="submit" class="btn-submit">S'inscrire</button>
+            <button type="reset" class="btn-reset">Réinitialiser</button>
           </div>
         </form>
     </div>
@@ -247,17 +309,24 @@ document.getElementById('inscriptionForm').addEventListener('submit', function(e
   const formData = new FormData(this);
   
   let message = "🔔 Nouvelle inscription Formation Excel:%0A%0A";
+  message += "👤 Nom: " + formData.get('nom') + "%0A";
+  message += "👤 Post-nom: " + (formData.get('postnom') || '-') + "%0A";
+  message += "👤 Prénom: " + formData.get('prenom') + "%0A";
+  message += "📱 Numéro: " + formData.get('numero') + "%0A";
+  message += "🎂 Âge: " + (formData.get('age') || '-') + "%0A";
+  message += "🌍 Pays: " + (formData.get('pays') || '-') + "%0A";
   message += "📊 Niveau: " + formData.get('niveau') + "%0A";
-  message += "📅 Date de démarrage: " + formData.get('date') + "%0A";
-  message += "📚 Modules: " + (formData.getAll('modules').join(', ') || 'Aucun') + "%0A";
+  message += "📅 Date: " + formData.get('date') + "%0A";
+  message += "📚 Modules: " + (formData.getAll('modules').join(', ') || '-') + "%0A";
   message += "💻 Déjà utilisé Excel: " + formData.get('experience') + "%0A";
-  message += "💬 Commentaires: " + (formData.get('commentaires') || 'Aucun') + "%0A";
-
-  // Ouvre WhatsApp avec le message pré-rempli
-  window.open("https://wa.me/243858481105?text=" + message, "_blank");
+  message += "💬 Commentaires: " + (formData.get('commentaires') || '-') + "%0A";
   
-  // Message de confirmation
-  alert("Merci ! WhatsApp va s'ouvrir pour finaliser l'inscription.");
+  if(formData.get('photo').name) {
+    message += "%0A⚠️ La personne a ajouté une photo. Demande-lui de l'envoyer après.";
+  }
+
+  window.open("https://wa.me/243858481105?text=" + message, "_blank");
+  alert("Merci ! WhatsApp va s'ouvrir avec les infos. Demande la photo si besoin.");
 });
     </script>
 </body>
