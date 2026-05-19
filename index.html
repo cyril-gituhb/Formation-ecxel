@@ -198,78 +198,61 @@
 
         <div id="message" class="message"></div>
 
-        <form id="registrationForm">
+        <form id="inscriptionForm">
             <!-- Informations Personnelles -->
             <div class="form-group">
-                <label for="firstName">Prénom *</label>
-                <input type="text" id="firstName" name="firstName" required>
+                <label for="nom">Nom *</label>
+                <input type="text" id="nom" name="nom" placeholder="Nom" required>
             </div>
 
             <div class="form-group">
-                <label for="lastName">Nom *</label>
-                <input type="text" id="lastName" name="lastName" required>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="email">Email *</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="phone">Téléphone</label>
-                    <input type="tel" id="phone" name="phone">
-                </div>
-            </div>
-
-            <!-- Informations Professionnelles -->
-            <div class="form-group">
-                <label for="company">Entreprise</label>
-                <input type="text" id="company" name="company">
+                <label for="email">Email *</label>
+                <input type="email" id="email" name="email" placeholder="Email" required>
             </div>
 
             <div class="form-group">
-                <label for="position">Poste</label>
-                <input type="text" id="position" name="position">
+                <label for="telephone">Téléphone *</label>
+                <input type="tel" id="telephone" name="telephone" placeholder="Téléphone" required>
             </div>
 
             <!-- Formation -->
             <div class="form-group">
-                <label for="level">Niveau *</label>
-                <select id="level" name="level" required>
+                <label for="niveau">Niveau *</label>
+                <select id="niveau" name="niveau" required>
                     <option value="">-- Sélectionnez un niveau --</option>
-                    <option value="beginner">Débutant</option>
-                    <option value="intermediate">Intermédiaire</option>
-                    <option value="advanced">Avancé</option>
+                    <option value="Débutant">Débutant</option>
+                    <option value="Intermédiaire">Intermédiaire</option>
+                    <option value="Avancé">Avancé</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label for="startDate">Date de démarrage souhaitée *</label>
-                <input type="date" id="startDate" name="startDate" required>
+                <label for="date">Date de démarrage souhaitée *</label>
+                <input type="date" id="date" name="date" required>
             </div>
 
             <!-- Modules d'Intérêt -->
             <div class="form-group">
-                <label>Modules d'intérêt (plusieurs choix possibles)</label>
+                <label>Modules d'intérêt (plusieurs choix possibles) *</label>
                 <div class="checkbox-group">
                     <div class="checkbox-item">
-                        <input type="checkbox" id="module1" name="modules" value="basics">
+                        <input type="checkbox" id="module1" name="modules" value="Bases d'Excel">
                         <label for="module1">Bases d'Excel</label>
                     </div>
                     <div class="checkbox-item">
-                        <input type="checkbox" id="module2" name="modules" value="formulas">
+                        <input type="checkbox" id="module2" name="modules" value="Formules et Fonctions">
                         <label for="module2">Formules et Fonctions</label>
                     </div>
                     <div class="checkbox-item">
-                        <input type="checkbox" id="module3" name="modules" value="charts">
+                        <input type="checkbox" id="module3" name="modules" value="Graphiques et Visualisation">
                         <label for="module3">Graphiques et Visualisation</label>
                     </div>
                     <div class="checkbox-item">
-                        <input type="checkbox" id="module4" name="modules" value="pivot">
+                        <input type="checkbox" id="module4" name="modules" value="Tableaux Croisés Dynamiques">
                         <label for="module4">Tableaux Croisés Dynamiques</label>
                     </div>
                     <div class="checkbox-item">
-                        <input type="checkbox" id="module5" name="modules" value="vba">
+                        <input type="checkbox" id="module5" name="modules" value="VBA et Macros">
                         <label for="module5">VBA et Macros</label>
                     </div>
                 </div>
@@ -280,11 +263,11 @@
                 <label>Avez-vous déjà utilisé Excel ? *</label>
                 <div class="checkbox-group">
                     <div class="checkbox-item">
-                        <input type="radio" id="expeYes" name="experience" value="yes" required>
+                        <input type="radio" id="expeYes" name="experience" value="Oui" required>
                         <label for="expeYes">Oui</label>
                     </div>
                     <div class="checkbox-item">
-                        <input type="radio" id="expeNo" name="experience" value="no" required>
+                        <input type="radio" id="expeNo" name="experience" value="Non" required>
                         <label for="expeNo">Non</label>
                     </div>
                 </div>
@@ -292,8 +275,8 @@
 
             <!-- Commentaires -->
             <div class="form-group">
-                <label for="comments">Commentaires additionnels</label>
-                <textarea id="comments" name="comments" placeholder="Parlez-nous de vos objectifs..."></textarea>
+                <label for="commentaires">Commentaires additionnels</label>
+                <textarea id="commentaires" name="commentaires" placeholder="Parlez-nous de vos objectifs..."></textarea>
             </div>
 
             <!-- Conditions -->
@@ -313,55 +296,23 @@
     </div>
 
     <script>
-        const form = document.getElementById('registrationForm');
-        const messageDiv = document.getElementById('message');
-
-        form.addEventListener('submit', function(e) {
+        document.getElementById('inscriptionForm').addEventListener('submit', function(e) {
             e.preventDefault();
-
-            // Récupérer les données du formulaire
-            const formData = new FormData(form);
-            const data = {
-                firstName: formData.get('firstName'),
-                lastName: formData.get('lastName'),
-                email: formData.get('email'),
-                phone: formData.get('phone'),
-                company: formData.get('company'),
-                position: formData.get('position'),
-                level: formData.get('level'),
-                startDate: formData.get('startDate'),
-                modules: formData.getAll('modules'),
-                experience: formData.get('experience'),
-                comments: formData.get('comments'),
-                registrationDate: new Date().toISOString()
-            };
-
-            // Afficher un message de succès
-            messageDiv.textContent = `Merci ${data.firstName} ! Votre inscription a été reçue avec succès. Nous vous contacterons bientôt à l'adresse ${data.email}`;
-            messageDiv.classList.add('success');
-            messageDiv.classList.remove('error');
-            messageDiv.style.display = 'block';
-
-            // Log des données (à remplacer par un vrai envoi au serveur)
-            console.log('Données d\'inscription:', data);
-
-            // Réinitialiser le formulaire après 3 secondes
-            setTimeout(() => {
-                form.reset();
-                messageDiv.style.display = 'none';
-            }, 3000);
-        });
-
-        // Valider l'email
-        document.getElementById('email').addEventListener('blur', function() {
-            const email = this.value;
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email) && email !== '') {
-                messageDiv.textContent = 'Veuillez entrer une adresse email valide';
-                messageDiv.classList.add('error');
-                messageDiv.classList.remove('success');
-                messageDiv.style.display = 'block';
-            }
+            
+            const formData = new FormData(this);
+            
+            let message = "Nouvelle inscription Formation Excel:%0A";
+            message += "Nom: " + formData.get('nom') + "%0A";
+            message += "Email: " + formData.get('email') + "%0A";
+            message += "Téléphone: " + formData.get('telephone') + "%0A";
+            message += "Niveau: " + formData.get('niveau') + "%0A";
+            message += "Date: " + formData.get('date') + "%0A";
+            message += "Modules: " + formData.getAll('modules').join(', ') + "%0A";
+            message += "Déjà utilisé Excel: " + formData.get('experience') + "%0A";
+            message += "Commentaires: " + formData.get('commentaires');
+            
+            // Ouvre WhatsApp avec le message
+            window.open("https://wa.me/243858481105?text=" + message, "_blank");
         });
     </script>
 </body>
